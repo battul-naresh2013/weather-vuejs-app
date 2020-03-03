@@ -1,73 +1,96 @@
 <template>
-  <div class="text-center">
-    <b-row>
-        <b-col cols="8" class="m-2">
-        <b-form-input v-model="cityName" required placeholder="Enter your city name" id="cityName">
-            </b-form-input>
-        </b-col>
-        <b-col class="m-2">
-          <b-button @click="showWeather" pill>Search</b-button>
-        </b-col>
-    </b-row>
+  <div>
+    <search-city-widget />
     <hr />
-    <b-card-group v-if="weatherDetails && weatherDetails && weatherDetails.length" deck>
-      <b-card v-for="(value, key) in weatherDetails" :key="key">
-        dt_txt:<h2>{{value.dt_txt}}</h2>
-        icon:<h2>{{value.weather[0].icon}}</h2>
-        temp_min: <h2>{{value.main.temp_min}}</h2>
-        temp_max: <h2>{{value.main.temp_max}}</h2>
-        humidity: <h2>{{value.main.humidity}}</h2>
-        weather:<h2>{{value.weather[0].description}}</h2>
+    <b-card-group class="m-3" v-if="hasWeatherDetails">
+      <b-card
+      overlay
+      class="cards"
+      img-alt="Card Image"
+      bg-variant="light"
+      text-variant="white"
+      v-for="(value, key) in weatherDetails" :key="key">
+        <h5>{{getDate(value.dt_txt)}}</h5>
+        <span class="iconify icon-size"
+        :data-icon="iconCss[key]" data-inline="false"></span>
+        <p><strong>{{getMinTempDegreeCelcius(key)}}°C</strong>
+         / {{getMaxTempDegreeCelcius(key)}}°C</p>
+        <p>Humidity: {{humidity[key]}}</p>
+        <p>Weather: {{weather[key]}}</p>
       </b-card>
     </b-card-group>
   </div>
 </template>
 
 <script>
-import { cities } from '../../shared/cityList';
-import { actionTypes } from '../../shared/appConstants';
+import getWeatherIcon from '../../shared/utilities/weatherIcons';
+import searchCityWidget from './searchCityWidget.vue';
+import { celsius } from '../../shared/utilities/temperature-unit-convertor';
 
 export default {
   name: 'weather-widget',
-  mounted() {
-    console.log('weatherDetails88888888888==, ', this.$store.state.weatherForecastModule.weatherDetails);
-
-    // this.showAllCities();
+  components: {
+    searchCityWidget,
   },
   data() {
-    return { cityName: '' };
+    return {
+      cityName: '',
+      iconCss: [],
+      tempMin: [],
+      tempMax: [],
+      humidity: [],
+      weather: [],
+    };
   },
   computed: {
-    cities() {
-      return this.$store.state.weatherForecastModule.allCities;
-    },
     weatherDetails() {
-      console.log('this.$store.state.weatherForecastModule.weatherDetails===',
-        this.$store.state.weatherForecastModule.weatherDetails);
-
+      this.processData();
       return this.$store.state.weatherForecastModule.weatherDetails;
+    },
+    hasWeatherDetails() {
+      return this.$store.state.weatherForecastModule.weatherDetails
+      && this.$store.state.weatherForecastModule.weatherDetails.length;
     },
   },
   methods: {
-    showWeather() {
-      // eslint-disable-next-line no-unused-vars
-      const cityId = this.getCityIdByCityName();
-      if (cityId) {
-        this.showWeatherDetails(cityId);
-      }
+    getDate(date) {
+      return new Date(date).toDateString();
     },
-    showWeatherDetails(cityId) {
-      this.$store.dispatch(actionTypes.getWeatherDetailsAction, cityId);
+    getMinTempDegreeCelcius(index) {
+      return celsius(this.tempMin[index]);
     },
-    getCityIdByCityName() {
-      // eslint-disable-next-line max-len
-      const cityDetails = cities.find((city) => city.name.toLowerCase() === this.cityName.toLowerCase());
-      if (cityDetails && cityDetails.id) return cityDetails.id;
-
-      // eslint-disable-next-line no-alert
-      alert('No city name found!');
-      return false;
+    getMaxTempDegreeCelcius(index) {
+      return celsius(this.tempMax[index]);
+    },
+    processData() {
+      this.resetData();
+      const { weatherDetails } = this.$store.state.weatherForecastModule;
+      weatherDetails.forEach((wd) => {
+        this.weather.push(wd.weather[0].description);
+        this.tempMin.push(wd.main.temp_min);
+        this.tempMax.push(wd.main.temp_max);
+        this.humidity.push(wd.main.humidity);
+        this.iconCss.push(getWeatherIcon(wd.weather[0].icon));
+      });
+    },
+    resetData() {
+      this.iconCss = [];
+      this.tempMin = [];
+      this.tempMax = [];
+      this.humidity = [];
+      this.weather = [];
     },
   },
 };
 </script>
+<style scoped>
+.cards {
+  background: url('../../assets/card-background.png') no-repeat bottom center scroll;
+  background-size: cover;
+  width: 100%;
+  height: 40vh;
+}
+.icon-size {
+  font-size: 50px;
+}
+</style>

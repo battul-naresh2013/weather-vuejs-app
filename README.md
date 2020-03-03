@@ -70,7 +70,7 @@ npm run lint
    b. actions: camelCaseSuffixAction
       ex: postEmployeeAction
    c. state: camelCase
-      ex: allEmployees  
+      ex: allCities  
 
 
 ### Project dependencies and devDependencies ------------

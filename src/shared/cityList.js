@@ -1,6 +1,51 @@
 // eslint-disable-next-line import/prefer-default-export
 export const cities = [
   {
+    id: 1269843,
+    name: 'Hyderabad',
+    country: 'IN',
+    coord: {
+      lon: 78.474442,
+      lat: 17.37528,
+    },
+  },
+  {
+    id: 1256436,
+    name: 'Solapur',
+    country: 'IN',
+    coord: {
+      lon: 75.916672,
+      lat: 17.683331,
+    },
+  },
+  {
+    id: 1273294,
+    name: 'Delhi',
+    country: 'IN',
+    coord: {
+      lon: 77.216667,
+      lat: 28.666668,
+    },
+  },
+  {
+    id: 1259229,
+    name: 'Pune',
+    country: 'IN',
+    coord: {
+      lon: 73.855347,
+      lat: 18.519569,
+    },
+  },
+  {
+    id: 1254661,
+    name: 'Thane',
+    country: 'IN',
+    coord: {
+      lon: 72.966667,
+      lat: 19.200001,
+    },
+  },
+  {
     id: 2749668,
     name: 'Oldebroek',
     country: 'NL',

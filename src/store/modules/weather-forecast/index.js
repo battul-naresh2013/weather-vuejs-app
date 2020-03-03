@@ -5,7 +5,6 @@ export { actions } from './actions';
 export { default as mutations } from './mutations';
 
 export const state = {
-  allCities: [],
   weatherDetails: {},
 };
 

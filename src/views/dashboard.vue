@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1>Weather Dashboard</h1>
+    <h4 class="pt-5 header-text">Welcome to Weather Dashboard</h4>
     <weather-widget />
   </div>
 </template>
@@ -15,3 +15,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.header-text{
+  color: azure;
+}
+</style>

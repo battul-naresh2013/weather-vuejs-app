@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const baseURL = 'https://api.openweathermap.org';
 
-const apiClient = axios.create({
+const clientApi = axios.create({
   baseURL,
   withCredentials: false,
   headers: {
@@ -12,9 +12,9 @@ const apiClient = axios.create({
   timeout: 10000,
 });
 
-apiClient.interceptors.response.use(
+clientApi.interceptors.response.use(
   (response) => response.data,
   (error) => Promise.reject(error),
 );
 
-export default apiClient;
+export default clientApi;
