@@ -56,8 +56,8 @@ npm run lint
 ### City name list ------
 ```
 Please use below cities only.
-For IN: Hyderabad, Delhi, Pune, Thane, Solapur, 
-For NL : Amsterdam, Nunspeet, Leek, Epe, Oldebroek
+For IN : Hyderabad, Mumbai, Bangalore, Chennai, Kolkata, Delhi, Pune, Thane, Solapur, 
+For NL : Amsterdam, Rotterdam, Utrecht, Eindhoven, Tilburg, Groningen, Nunspeet, Leek, Epe, Oldebroek
 
 Note: As I didn't find cities api from https://openweathermap.org/api, instead there is a huge json file data for cities.
 So, I extracted few of them and used in this application.
@@ -81,7 +81,6 @@ So, I extracted few of them and used in this application.
       ex: postEmployeeAction
    c. state: camelCase
       ex: allCities  
-
 
 ### Project dependencies and devDependencies ------------
 1. axios:
