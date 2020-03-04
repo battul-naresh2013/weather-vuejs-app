@@ -53,6 +53,16 @@ npm run test:e2e
 npm run lint
 ```
 
+### City name list ------
+```
+Please use below cities only.
+For IN: Hyderabad, Delhi, Pune, Thane, Solapur, 
+For NL : Amsterdam, Nunspeet, Leek, Epe, Oldebroek
+
+Note: As I didn't find cities api from https://openweathermap.org/api, instead there is a huge json file data for cities.
+So, I extracted few of them and used in this application.
+```
+
 ### Project Guidelines ------------
 
 1) File Naming Convention, 
